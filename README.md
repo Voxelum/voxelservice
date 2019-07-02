@@ -15,7 +15,7 @@ Base url is `http://voxelauncher.azurewebsites.net/api/v1` for version 1.
 
 #### By Project Id & File Id
 
-`http://voxelauncher.azurewebsites.net/api/v1/curseforge/file/{projectId}/{fileId}`
+GET `http://voxelauncher.azurewebsites.net/api/v1/curseforge/file/{projectId}/{fileId}`
 
 This will first query server if we have cache the jar file.
 
@@ -39,7 +39,7 @@ People live in China Mainland, and want to download curseforge file.
 
 #### By Mod Id & Mod Version
 
-`http://voxelauncher.azurewebsites.net/api/v1/mods/file/{modid}/{version}`
+GET `http://voxelauncher.azurewebsites.net/api/v1/mods/file/{modid}/{version}`
 
 This will check if we have store any mod metadata json (with curseforge info) matching this.
 
@@ -57,7 +57,7 @@ So, in this case, your launcher could take this info to download the mod jar to 
 
 ### Get Java 
 
-`http://voxelauncher.azurewebsites.net/api/v1/jre/{os}/{arch}`
+GET `http://voxelauncher.azurewebsites.net/api/v1/jre/{os}/{arch}`
 
 The `os` can be `win` or `osx`. The `arch` can be `86` or `64`.
 
