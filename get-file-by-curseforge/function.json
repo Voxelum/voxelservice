@@ -14,8 +14,9 @@
       "type": "blob",
       "direction": "in",
       "name": "blobIn",
-      "path": "/curseforge/{Query.project}/{Query.file}",
-      "dataType": "binary"
+      "path": "curseforge/{Query.project}/{Query.file}",
+      "dataType": "binary",
+      "connection": "AzureWebJobsStorage"
     },
     {
       "type": "http",
@@ -26,15 +27,16 @@
       "type": "blob",
       "direction": "out",
       "name": "blobOut",
-      "path": "/curseforge/{Query.project}/{Query.file}",
+      "path": "curseforge/{Query.project}/{Query.file}",
       "dataType": "binary"
     },
     {
       "type": "blob",
       "direction": "out",
       "name": "metaOut",
-      "path": "/curseforge/{Query.project}/{Query.file}.json",
-      "dataType": "string"
+      "path": "curseforge/{Query.project}/{Query.file}.json",
+      "dataType": "string",
+      "connection": "AzureWebJobsStorage"
     }
   ],
   "scriptFile": "../dist/get-file-by-curseforge/index.js"

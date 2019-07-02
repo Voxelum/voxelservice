@@ -7,9 +7,9 @@
           "GET",
           "HEAD"
         ],
-        "route": "/api/curseforge/file/{projectId}/{fileId}"
+        "route": "/api/v1/curseforge/file/{projectId}/{fileId}"
       },
-      "backendUri": "https://voxelauncher.azurewebsites.net/api/get-file-by-curseforge",
+      "backendUri": "https://localhost/api/get-file-by-curseforge",
       "requestOverrides": {
         "backend.request.querystring.project": "{projectId}",
         "backend.request.querystring.file": "{fileId}"
@@ -20,27 +20,33 @@
         "methods": [
           "GET"
         ],
-        "route": "/api/curseforge/metadata/{projectId}/{fileId}"
+        "route": "/api/v1/curseforge/metadata/{projectId}/{fileId}"
       },
-      "backendUri": "https://voxelauncher.blob.core.windows.net/curseforge/{projectId}/{fileId}.json"
+      "backendUri": "https://voxelauncher.blob.core.windows.net/curseforge/{projectId}/{fileId}.json",
+      "responseOverrides": {
+        "response.headers.Content-Type": "application/json"
+      }
     },
     "get-metadata-by-modid": {
       "matchCondition": {
         "methods": [
           "GET"
         ],
-        "route": "/api/mods/metadata/{modId}/{version}"
+        "route": "/api/v1/mods/metadata/{modId}/{version}"
       },
-      "backendUri": "https://voxelauncher.blob.core.windows.net/mods/{modId}/{version}.json"
+      "backendUri": "https://voxelauncher.blob.core.windows.net/mods/{modId}/{version}.json",
+      "responseOverrides": {
+        "response.headers.Content-Type": "application/json"
+      }
     },
     "get-file-by-modid": {
       "matchCondition": {
         "methods": [
           "GET"
         ],
-        "route": "/api/mods/file/{modId}/{version}"
+        "route": "/api/v1/mods/file/{modId}/{version}"
       },
-      "backendUri": "https://voxelauncher.azurewebsites.net/api/get-file-by-modid",
+      "backendUri": "https://localhost/api/get-file-by-modid",
       "requestOverrides": {
         "backend.request.querystring.modid": "{modId}",
         "backend.request.querystring.version": "{version}"
@@ -51,9 +57,9 @@
         "methods": [
           "GET"
         ],
-        "route": "/api/jre/{os}/{arch}"
+        "route": "/api/v1/jre/{os}/{arch}"
       },
-      "backendUri": "https://voxelauncher.blob.core.windows.net/jre/jre-{os}-{arch}-1.8.0_51.lzma"
+      "backendUri": "https://voxelauncher.blob.core.windows.net/jre/jre-{os}-{arch}.lzma"
     }
   }
 }
