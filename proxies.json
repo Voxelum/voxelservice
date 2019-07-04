@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/proxies",
   "proxies": {
-    "get-file-by-curseforge": {
+    "proxy-get-file-by-curseforge": {
       "matchCondition": {
         "methods": [
           "GET",
@@ -15,7 +15,7 @@
         "backend.request.querystring.file": "{fileId}"
       }
     },
-    "get-metadata-by-curseforge": {
+    "proxy-get-metadata-by-curseforge": {
       "matchCondition": {
         "methods": [
           "GET"
@@ -27,7 +27,7 @@
         "response.headers.Content-Type": "application/json"
       }
     },
-    "get-metadata-by-modid": {
+    "proxy-get-metadata-by-modid": {
       "matchCondition": {
         "methods": [
           "GET"
@@ -39,7 +39,7 @@
         "response.headers.Content-Type": "application/json"
       }
     },
-    "get-file-by-modid": {
+    "proxy-get-file-by-modid": {
       "matchCondition": {
         "methods": [
           "GET"
@@ -52,7 +52,7 @@
         "backend.request.querystring.version": "{version}"
       }
     },
-    "get-java": {
+    "proxy-get-java": {
       "matchCondition": {
         "methods": [
           "GET"
