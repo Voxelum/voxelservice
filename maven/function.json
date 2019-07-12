@@ -1,0 +1,36 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "head"
+      ]
+    },
+    {
+      "type": "blob",
+      "direction": "in",
+      "name": "binIn",
+      "path": "forge/{Query.path}",
+      "dataType": "binary",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "binOut",
+      "path": "forge/{Query.path}",
+      "dataType": "binary",
+      "connection": "AzureWebJobsStorage"
+    }
+  ],
+  "scriptFile": "../dist/maven/index.js"
+}
