@@ -18,13 +18,15 @@
     "proxy-get-metadata-by-curseforge": {
       "matchCondition": {
         "methods": [
-          "GET"
+          "GET",
+          "HEAD"
         ],
         "route": "/api/v1/curseforge/metadata/{projectId}/{fileId}"
       },
-      "backendUri": "https://voxelauncher.blob.core.windows.net/curseforge/{projectId}/{fileId}.json",
-      "responseOverrides": {
-        "response.headers.Content-Type": "application/json"
+      "backendUri": "https://localhost/api/get-metadata-by-curseforge",
+      "requestOverrides": {
+        "backend.request.querystring.project": "{projectId}",
+        "backend.request.querystring.file": "{fileId}"
       }
     },
     "proxy-get-metadata-by-modid": {
@@ -60,6 +62,57 @@
         "route": "/api/v1/jre/{os}/{arch}"
       },
       "backendUri": "https://voxelauncher.blob.core.windows.net/jre/jre-{os}-{arch}.lzma"
+    },
+    "proxy-get-minecraft-forge-json": {
+      "matchCondition": {
+        "methods": [
+          "GET"
+        ],
+        "route": "/api/v1/forge/versions/{minecraftVersion}"
+      },
+      "backendUri": "https://localhost/api/get-forge-versions",
+      "requestOverrides": {
+        "backend.request.querystring.minecraft": "{minecraftVersion}"
+      }
+    },
+    "proxy-get-forge-json": {
+      "matchCondition": {
+        "methods": [
+          "GET"
+        ],
+        "route": "/api/v1/forge/versions/{minecraftVersion}/{forgeVersion}"
+      },
+      "backendUri": "https://localhost/api/get-forge-versions",
+      "requestOverrides": {
+        "backend.request.querystring.minecraft": "{minecraftVersion}",
+        "backend.request.querystring.forge": "{forgeVersion}"
+      }
+    },
+    "proxy-get-forge-data": {
+      "matchCondition": {
+        "methods": [
+          "GET"
+        ],
+        "route": "/api/v1/forge/data/{side}/{version}"
+      },
+      "backendUri": "https://localhost/api/get-forge-data",
+      "requestOverrides": {
+        "backend.request.querystring.version": "{version}",
+        "backend.request.querystring.side": "{side}"
+      }
+    },
+    "proxy-maven": {
+      "matchCondition": {
+        "methods": [
+          "HEAD",
+          "GET"
+        ],
+        "route": "/api/v1/maven/{*restOfPath}"
+      },
+      "backendUri": "https://localhost/api/maven",
+      "requestOverrides": {
+        "backend.request.querystring.path": "{restOfPath}"
+      }
     }
   }
 }
