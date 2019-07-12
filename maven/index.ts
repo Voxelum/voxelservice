@@ -77,6 +77,9 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 context.log("Download new forge");
                 const isInstaller = path.endsWith("installer.jar");
                 const isUniversal = path.endsWith("universal.jar");
+                if (isInstaller) context.log("is installer");
+                else if (isUniversal) context.log("is universal");
+
                 const url = `http://files.minecraftforge.net/maven/${path}`;
                 const { body } = await got.get(url, { encoding: null } as got.GotBodyOptions<null>);
                 const buffer = body as any as Buffer;
@@ -90,15 +93,16 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 const serv = AZS.createBlobService(process.env.AzureWebJobsStorage);
 
                 try {
-                    const json = await zip.file("version.json").async("nodebuffer").then(b => b.toString()).then(JSON.parse);
+                    const json = await zip.file("version.json").async("text").then(JSON.parse);
                     const id = json.id;
                     const mcversion = json.inheritsFrom;
                     const newForge = Number.parseInt(mcversion.split(".")[1], 10) >= 13;
 
+                    context.log("is new Forge");
                     if (isInstaller && newForge) { // new forge use install profile to install, therefore cache it
                         try {
                             // cache install_profile
-                            const installProfile = await zip.file("install_profile.json").async("nodebuffer").then(b => b.toString()).then(JSON.parse);
+                            const installProfile = await zip.file("install_profile.json").async("text");
                             await new Promise((resolve, reject) => {
                                 serv.createBlockBlobFromText("forge", `install_profiles/${id}`, installProfile, (err) => {
                                     if (err) { reject(err) }

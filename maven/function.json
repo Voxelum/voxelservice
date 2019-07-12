@@ -14,7 +14,7 @@
       "type": "blob",
       "direction": "in",
       "name": "binIn",
-      "path": "forge/{Query.path}",
+      "path": "maven/{Query.path}",
       "dataType": "binary",
       "connection": "AzureWebJobsStorage"
     },
@@ -27,7 +27,7 @@
       "type": "blob",
       "direction": "out",
       "name": "binOut",
-      "path": "forge/{Query.path}",
+      "path": "maven/{Query.path}",
       "dataType": "binary",
       "connection": "AzureWebJobsStorage"
     }
