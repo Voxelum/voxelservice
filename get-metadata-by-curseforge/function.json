@@ -1,0 +1,36 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "head"
+      ]
+    },
+    {
+      "type": "blob",
+      "direction": "in",
+      "name": "metaIn",
+      "path": "curseforge/{Query.project}/{Query.file}.json",
+      "dataType": "string",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "metaOut",
+      "path": "curseforge/{Query.project}/{Query.file}.json",
+      "dataType": "string",
+      "connection": "AzureWebJobsStorage"
+    }
+  ],
+  "scriptFile": "../dist/get-metadata-by-curseforge/index.js"
+}
