@@ -77,7 +77,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 context.log("Download new forge");
                 const isInstaller = path.endsWith("installer.jar");
                 const isUniversal = path.endsWith("universal.jar");
-                const url = `http://file.minecraftforge.net/maven/${path}`;
+                const url = `http://files.minecraftforge.net/maven/${path}`;
                 const { body } = await got.get(url, { encoding: null } as got.GotBodyOptions<null>);
                 const buffer = body as any as Buffer;
 
