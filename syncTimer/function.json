@@ -1,0 +1,34 @@
+{
+  "bindings": [
+    {
+      "name": "myTimer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "0 0 0/1 * * *",
+      "runOnStartup": true
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "mcbbsData",
+      "path": "mcbbs/mcbbsData",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "newsData",
+      "path": "mcbbs/newsData",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "vanillaData",
+      "dataType": "string",
+      "path": "integration/vanillaData.json",
+      "connection": "AzureWebJobsStorage"
+    }
+  ],
+  "scriptFile": "../dist/syncTimer/index.js"
+}
