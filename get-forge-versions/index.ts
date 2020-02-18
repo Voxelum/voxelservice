@@ -28,7 +28,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(result.entries.map(e => basename(e.name))),
+            body: JSON.stringify(result.entries.map((e) => basename(e.name))),
         }
     } else if (!minecraft && !!forge) {
         context.res = {

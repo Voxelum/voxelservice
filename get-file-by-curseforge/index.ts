@@ -1,8 +1,8 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import * as got from "got"
+import got from "got"
 import * as AZS from "azure-storage";
 import { AnnotationVisitor, ClassReader, ClassVisitor, Opcodes } from "java-asm";
-import * as JSZip from 'jszip';
+import * as JSZip from "jszip";
 class AVisitor extends AnnotationVisitor {
     constructor(readonly map: { [key: string]: any }) { super(Opcodes.ASM5); }
     public visit(s: string, o: any) {
@@ -97,8 +97,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     } else {
         try {
             context.log("Download new");
-            const { body } = await got.get(`https://www.curseforge.com/minecraft/mc-mods/${project}/download/${file}/file`, { encoding: null } as got.GotBodyOptions<null>);
-            const buffer = body as any as Buffer;
+            const buffer = await got.get(`https://www.curseforge.com/minecraft/mc-mods/${project}/download/${file}/file`, { encoding: null }).buffer();
 
             const zip = await JSZip.loadAsync(buffer);
             const tree = {};
@@ -117,8 +116,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             for (const m of metadata) { // modid:version -> mod metadata with curseforge project & file
                 await new Promise((resolve, reject) => {
                     serv.createBlockBlobFromText("mods", `${m.modid}/${m.version}.json`, JSON.stringify({ ...m, curseforge: { project, file } }), (err, result) => {
-                        if (err) reject(err);
-                        else resolve(result);
+                        if (err) { reject(err); }
+                        else { resolve(result); }
                     });
                 });
             }

@@ -1,7 +1,7 @@
 {
   "bindings": [
     {
-      "name": "myTimer",
+      "name": "pl-sync-timer",
       "type": "timerTrigger",
       "direction": "in",
       "schedule": "0 0 0/1 * * *",
@@ -11,14 +11,8 @@
       "type": "blob",
       "direction": "out",
       "name": "mcbbsData",
-      "path": "mcbbs/mcbbsData",
-      "connection": "AzureWebJobsStorage"
-    },
-    {
-      "type": "blob",
-      "direction": "out",
-      "name": "newsData",
-      "path": "mcbbs/newsData",
+      "dataType": "string",
+      "path": "integration/mcbbsData.json",
       "connection": "AzureWebJobsStorage"
     },
     {
@@ -30,5 +24,5 @@
       "connection": "AzureWebJobsStorage"
     }
   ],
-  "scriptFile": "../dist/syncTimer/index.js"
+  "scriptFile": "../dist/pl-sync-timer/index.js"
 }

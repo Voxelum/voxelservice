@@ -1,7 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import * as got from "got"
+import got from "got"
 import * as AZS from "azure-storage";
-import * as JSZip from 'jszip';
+import * as JSZip from "jszip";
 import { basename } from "path";
 import * as crypto from "crypto";
 import * as stream from "stream";
@@ -77,17 +77,16 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 context.log("Download new forge");
                 const isInstaller = path.endsWith("installer.jar");
                 const isUniversal = path.endsWith("universal.jar");
-                if (isInstaller) context.log("is installer");
-                else if (isUniversal) context.log("is universal");
+                if (isInstaller) { context.log("is installer"); }
+                else if (isUniversal) { context.log("is universal"); }
 
                 const url = `http://files.minecraftforge.net/maven/${path}`;
-                const { body } = await got.get(url, { encoding: null } as got.GotBodyOptions<null>);
-                const buffer = body as any as Buffer;
+                const buffer = await got(url, { encoding: null }).buffer();
 
                 context.res = createResponse(file, buffer, true, !head);
                 context.bindings.binOut = buffer;
 
-                if (!isUniversal && !isInstaller) return;
+                if (!isUniversal && !isInstaller) { return; }
 
                 const zip = await JSZip.loadAsync(buffer);
                 const serv = AZS.createBlobService(process.env.AzureWebJobsStorage);
@@ -111,12 +110,12 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                             });
 
                             // cache data
-                            cacheData(serv, zip, id, "client");
-                            cacheData(serv, zip, id, "server");
+                            cacheData(serv, zip, id, "client").catch(console.error);
+                            cacheData(serv, zip, id, "server").catch(console.error);
 
                             // handle strange built-in maven things
                             const mavenThings = zip.filter((file) => file.startsWith("maven/"));
-                            const buffers = await Promise.all(mavenThings.map(m => m.async("nodebuffer")));
+                            const buffers = await Promise.all(mavenThings.map((m) => m.async("nodebuffer")));
 
                             for (let i = 0; i < mavenThings.length; ++i) {
                                 const m = mavenThings[i];
@@ -139,7 +138,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                     }
 
                     if (!newForge && !isInstaller) { // old forge can be installed directly, add download info
-                        const lib = json.libraries.find(l => l.name.startsWith("net.minecraftforge:forge"));
+                        const lib = json.libraries.find((l) => l.name.startsWith("net.minecraftforge:forge"));
                         lib.downloads = {
                             artifact: {
                                 size: buffer.length,
@@ -152,8 +151,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
                     await new Promise((resolve, reject) => {
                         serv.createBlockBlobFromText("forge", `versions/${mcversion}/${id}`, JSON.stringify({ ...json }), (err, result) => {
-                            if (err) reject(err);
-                            else resolve(result);
+                            if (err) { reject(err); }
+                            else { resolve(result); }
                         });
                     });
                 } catch (e) {
