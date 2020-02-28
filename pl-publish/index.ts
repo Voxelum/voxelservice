@@ -19,7 +19,7 @@ const fn: AzureFunction = (ctx, req: HttpRequest, pureLauncherMetadata = JSON.st
         return
     }
     try {
-        ctx.bindings.pureLauncherMetadata = JSON.stringify({
+        ctx.bindings.pureLauncherMetadataOut = JSON.stringify({
             version,
             exeUrl: `https://dl.pl.apisium.cn/download/pl/${version}/PureLauncher-v${version}.exe`,
             asarUrl: `https://dl.pl.apisium.cn/download/pl/${version}/PureLauncher-v${version}.asar`

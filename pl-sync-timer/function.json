@@ -1,7 +1,7 @@
 {
   "bindings": [
     {
-      "name": "pl-sync-timer",
+      "name": "plSyncTimer",
       "type": "timerTrigger",
       "direction": "in",
       "schedule": "0 0 0/1 * * *",

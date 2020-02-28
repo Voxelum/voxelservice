@@ -25,7 +25,7 @@
     {
       "type": "blob",
       "direction": "out",
-      "name": "pureLauncherMetadata",
+      "name": "pureLauncherMetadataOut",
       "dataType": "string",
       "path": "integration/pureLauncherMetadata.json",
       "connection": "AzureWebJobsStorage"
