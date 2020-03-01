@@ -1,5 +1,6 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import got from "got"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import got from "got";
 import * as AZS from "azure-storage";
 import { AnnotationVisitor, ClassReader, ClassVisitor, Opcodes } from "java-asm";
 import * as JSZip from "jszip";
@@ -11,7 +12,7 @@ class AVisitor extends AnnotationVisitor {
 }
 class KVisitor extends ClassVisitor {
     public fields: any = {};
-    private className: string = "";
+    private className = "";
     public constructor(readonly map: { [key: string]: any }) {
         super(Opcodes.ASM5);
     }
@@ -38,7 +39,7 @@ function createResponse(bin: string, created: boolean, body: boolean) {
         headers: body ? {
             "Content-Type": "application/json",
         } : {},
-    }
+    };
 }
 async function asmMetaData(zip: JSZip, modidTree: any) {
     for (const key in zip.files) {
@@ -81,7 +82,7 @@ async function jsonMetaData(zip: JSZip, modidTree: any) {
         } else {
             modidTree[meta.modid] = meta;
         }
-    } catch (e) { }
+    } catch { /* empty */ }
 }
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest, metaIn?: string): Promise<void> {
@@ -124,7 +125,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             context.res = {
                 status: 500,
                 body: !head ? JSON.stringify(e) : undefined,
-            }
+            };
         }
     }
 };

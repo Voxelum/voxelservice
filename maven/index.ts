@@ -1,5 +1,5 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import got from "got"
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import got from "got";
 import * as AZS from "azure-storage";
 import * as JSZip from "jszip";
 import { basename } from "path";
@@ -15,7 +15,7 @@ function createResponse(filename: string, bin: Buffer, created: boolean, body: b
             "Content-Type": "application/octet-stream",
             "Content-Disposition": `attachment; filename=${filename}`,
         } : {},
-    }
+    };
 }
 
 function createReadable(buffer: Buffer) {
@@ -42,19 +42,19 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     async function cacheData(serv: AZS.BlobService, zip: JSZip, id: string, side: "client" | "server") {
         const lzm = await zip.file(`data/${side}.lzma`).async("nodebuffer");
         const hash = crypto.createHash("sha256").update(lzm).digest("hex");
-        const exists = await new Promise((resolve, reject) => {
+        const exists = await new Promise((resolve) => {
             serv.doesBlobExist("forge", `data/${hash}`, (e, r) => {
-                if (e) { resolve(e) }
+                if (e) { resolve(e); }
                 else { resolve(r.exists); }
-            })
-        })
+            });
+        });
         if (!exists) {
             await new Promise((resolve, reject) => {
                 serv.createBlockBlobFromStream("forge", `data/${hash}`,
                     createReadable(lzm),
                     lzm.length,
                     (err) => {
-                        if (err) { reject(err) }
+                        if (err) { reject(err); }
                         else { resolve(); }
                     }
                 );
@@ -65,7 +65,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 if (err) { reject(err); }
                 else { resolve(); }
             });
-        })
+        });
     }
 
     if (blobIn) {
@@ -104,8 +104,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                             const installProfile = await zip.file("install_profile.json").async("text");
                             await new Promise((resolve, reject) => {
                                 serv.createBlockBlobFromText("forge", `install_profiles/${id}`, installProfile, (err) => {
-                                    if (err) { reject(err) }
-                                    else { resolve() }
+                                    if (err) { reject(err); }
+                                    else { resolve(); }
                                 });
                             });
 
@@ -125,7 +125,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                                         createReadable(b),
                                         b.length,
                                         (err) => {
-                                            if (err) { reject(err) }
+                                            if (err) { reject(err); }
                                             else { resolve(); }
                                         }
                                     );
@@ -146,7 +146,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                                 path,
                                 url,
                             }
-                        }
+                        };
                     }
 
                     await new Promise((resolve, reject) => {
@@ -156,13 +156,13 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                         });
                     });
                 } catch (e) {
-                    context.log.error(`Cannot parse forge jar in path ${path}.`)
+                    context.log.error(`Cannot parse forge jar in path ${path}.`);
                     context.log.error(e);
                 }
             } else {
                 context.res = {
                     status: 404
-                }
+                };
             }
         } catch (e) {
             context.log.error("Error");
@@ -170,7 +170,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             context.res = {
                 status: 500,
                 body: !head ? JSON.stringify(e) : undefined,
-            }
+            };
         }
     }
 };

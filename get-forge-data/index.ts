@@ -25,18 +25,18 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             } else {
                 context.res = {
                     status: 404,
-                }
+                };
             }
         } catch (e) {
             context.log.error(e);
             context.res = {
                 status: 404,
-            }
+            };
         }
     } else {
         context.res = {
             status: 404,
-        }
+        };
     }
 };
 

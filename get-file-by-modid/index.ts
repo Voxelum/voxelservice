@@ -1,4 +1,4 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest, metaIn: string): Promise<void> {
     if (metaIn) {
@@ -9,7 +9,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             headers: {
                 "Location": `https://voxelauncher.blob.core.windows.net/curseforge/${project}/${file}`,
             },
-        }
+        };
     } else {
         context.res = {
             status: 404,
