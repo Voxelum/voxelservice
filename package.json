@@ -26,19 +26,19 @@
     "url-join": "^4.0.1"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.16",
-    "@types/semver": "^7.1.0",
     "@azure/functions": "^1.2.0",
+    "@types/cheerio": "^0.22.16",
     "@types/got": "9.6.9",
     "@types/jszip": "^3.1.7",
-    "@types/ssh2": "^0.5.40",
     "@types/long": "^4.0.1",
     "@types/node": "^13.7.1",
+    "@types/semver": "^7.1.0",
+    "@types/ssh2": "^0.5.40",
     "@types/url-join": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "eslint": "^6.8.0",
     "husky": "^4.2.3",
-    "typescript": "^3.7.5"
+    "typescript": "^3.8.3"
   }
 }

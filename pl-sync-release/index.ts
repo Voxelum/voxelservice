@@ -3,6 +3,7 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import got from "got";
 import { Client, SFTPWrapper } from "ssh2";
 import { pipeline, finished } from "stream";
+import { dirname } from "path";
 import { promisify } from "util";
 
 interface GHReleases {
@@ -47,9 +48,11 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     await new Promise((resolve) => { client.on("ready", resolve); });
     const sftp = await new Promise<SFTPWrapper>((resolve, reject) => { client.sftp((err, sftp) => { if (err) { reject(err); } else { resolve(sftp); } }); });
     await Promise.all(result.assets.map(async (a) => {
+        let dest = getDestPath(result.name, a);
+        await new Promise((resolve, reject) => sftp.mkdir(dirname(dest), (e) => { if (e) { reject(e) } else { resolve() } }));
         const stream = pipeline(
             got.stream(a.browser_download_url),
-            sftp.createWriteStream(getDestPath(result.name, a)),
+            sftp.createWriteStream(dest),
         );
         return finishedStream(stream);
     }));
