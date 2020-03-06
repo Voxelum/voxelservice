@@ -21,12 +21,20 @@ function getDestPath(version: string, a: GHReleases["assets"][number]) {
 const finishedStream = promisify(finished);
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest, blobIn?: Buffer): Promise<void> {
-    const { version } = req.query;
-    context.log(`${req.method} ${version}`);
+    const { ref, token } = req.query;
+    if (token !== process.env.PL_RELEASE_TOKEN) {
+        context.res = {
+            status: 400,
+        };
+        return;
+    }
+    context.log(`${req.method} ${ref}`);
 
     const gh = got.extend({
         host: "https://api.github.com",
     });
+
+    const version = ref.substring("refs/tags/".length);
 
     const result: GHReleases = await gh(`/repos/Apisium/PureLauncher/releases/tags/${version}`).json();
 
