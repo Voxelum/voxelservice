@@ -15,5 +15,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/check-release/index.js"
+  "scriptFile": "../dist/pl-sync-release/index.js"
 }
