@@ -4,13 +4,14 @@ import * as cheerio from "cheerio";
 import { AzureFunction } from "@azure/functions";
 
 const FORGE_URL = "https://bmclapi2.bangbang93.com/forge/promos";
+const OPTIFINE_URL = "https://bmclapi2.bangbang93.com/optifine/versionList";
 const FABRIC_URL = "https://meta.fabricmc.net/v2/versions";
 const VANILLA_URL = "https://launchermeta.mojang.com/mc/game/version_manifest.json";
 
 interface ForgeVersion {
-  installer: string;
-  universal: string;
-  version: string;
+    installer: string;
+    universal: string;
+    version: string;
 }
 
 interface FabricData {
@@ -28,6 +29,13 @@ interface ForgeData {
         mcversion: string;
         files: Array<{ category: string; format: string; hash: string }>;
     };
+}
+
+interface OptifineData {
+    mcversion: string // "1.13.2"
+    patch: string // E7
+    type: string //"HD_U",
+    filename: string; //OptiFine_1.13.2_HD_U_E7.jar
 }
 
 interface VanillaData {
@@ -89,7 +97,7 @@ const fn: AzureFunction = async (ctx) => {
 
     ctx.log("[sync] Loading forge data...");
     const forge = await got(FORGE_URL).json<ForgeData[]>();
-    const forgeMap: Record<string, ForgeVersion> = {};
+    const forgeMap: Record<string, string> = {};
     forge.forEach(({ name, build }) => {
         if (!build) { return; }
         const { version, mcversion, files } = build;
@@ -97,13 +105,17 @@ const fn: AzureFunction = async (ctx) => {
         const universal = files.find((it) => it.category === "universal" && it.format === "jar");
         const installer = files.find((it) => it.category === "installer" && it.format === "jar");
         if (!universal || !installer) { return; }
-        forgeMap[mcversion] = {
-            version,
-            universal: universal.hash,
-            installer: installer.hash
-        };
+        forgeMap[mcversion] = version;
     });
     ctx.log("[sync] Loaded forge data");
+
+    ctx.log("[sync] Loading optifine data...");
+    const optifine = await got(OPTIFINE_URL).json<OptifineData[]>();
+    const optifineMap: Record<string, string[]> = {};
+    optifine.forEach(({ mcversion, type, patch }) => {
+        optifineMap[mcversion] = [type, patch];
+    });
+    ctx.log("[sync] Loaded optifine data");
 
     ctx.log("[sync] Loading vanilla data...");
     const { latest, versions } = await got(VANILLA_URL).json<VanillaData>();
@@ -128,6 +140,8 @@ const fn: AzureFunction = async (ctx) => {
             if (fabric) { ret.fabric = fabric; }
             const forge = forgeMap[id];
             if (forge) { ret.forge = forge; }
+            const optifine = optifineMap[id];
+            if (optifine) { ret.optifine = optifine; }
             return ret;
         })
     };
