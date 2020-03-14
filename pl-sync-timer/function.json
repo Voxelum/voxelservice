@@ -12,7 +12,7 @@
       "direction": "out",
       "name": "mcbbsData",
       "dataType": "string",
-      "path": "integration/mcbbsData.json",
+      "path": "pure-launcher/mcbbsData.json",
       "connection": "AzureWebJobsStorage"
     },
     {
@@ -20,7 +20,7 @@
       "direction": "out",
       "name": "vanillaData",
       "dataType": "string",
-      "path": "integration/vanillaData.json",
+      "path": "pure-launcher/vanillaData.json",
       "connection": "AzureWebJobsStorage"
     }
   ],
