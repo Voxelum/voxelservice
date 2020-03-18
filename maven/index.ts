@@ -115,7 +115,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
                             // handle strange built-in maven things
                             const mavenThings = zip.filter((file) => file.startsWith("maven/"));
-                            const buffers = await Promise.all(mavenThings.map((m) => m.async("nodebuffer")));
+                            const buffers:Buffer[] = await Promise.all(mavenThings.map((m) => m.async("nodebuffer")));
 
                             for (let i = 0; i < mavenThings.length; ++i) {
                                 const m = mavenThings[i];

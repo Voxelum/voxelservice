@@ -14,7 +14,10 @@
       "name": "metaIn",
       "direction": "in",
       "dataType": "string",
-      "type": "blob"
+      "type": "blob",
+      "connection": "AzureWebJobsStorage",
+      "path": "curseforge/{Query.project}/{Query.file}"
+
     },
     {
       "type": "http",
