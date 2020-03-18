@@ -32,10 +32,10 @@ interface ForgeData {
 }
 
 interface OptifineData {
-    mcversion: string // "1.13.2"
-    patch: string // E7
-    type: string //"HD_U",
-    filename: string; //OptiFine_1.13.2_HD_U_E7.jar
+    mcversion: string; // "1.13.2"
+    patch: string; // E7
+    type: string; // "HD_U",
+    filename: string; // OptiFine_1.13.2_HD_U_E7.jar
 }
 
 interface VanillaData {
