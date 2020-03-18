@@ -3,7 +3,7 @@ import * as AZS from "azure-storage";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest, mapping?: string): Promise<void> {
     const { forge } = req.query;
-    context.log(`${req.method} ${forge}`);
+    context.log(`Query ${req.method} ${forge}`);
 
     if (mapping) {
         context.log("Exists");

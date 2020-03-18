@@ -22,5 +22,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/get-file-by-modid/index.js"
+  "scriptFile": "./index.js"
 }

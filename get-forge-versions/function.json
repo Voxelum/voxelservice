@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/get-forge-versions/index.js"
+  "scriptFile": "./index.js"
 }

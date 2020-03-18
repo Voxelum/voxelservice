@@ -32,5 +32,5 @@
       "connection": "AzureWebJobsStorage"
     }
   ],
-  "scriptFile": "../dist/get-metadata-by-curseforge/index.js"
+  "scriptFile": "./index.js"
 }

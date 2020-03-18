@@ -23,5 +23,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/get-forge-data/index.js"
+  "scriptFile": "./index.js"
 }
