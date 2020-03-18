@@ -27,8 +27,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     } else {
         try {
             context.log(`Not Found for project=${project} file=${file}. Download a new one`);
-            const buffer = await got.get(`https://www.curseforge.com/minecraft/mc-mods/${project}/download/${file}/file`, { encoding: null }).buffer();
-
+            const url = await got.get(`https://addons-ecs.forgesvc.net/api/v2/addon/${project}/file/${file}/download-url`).text()
+            const buffer = await got.get(url, { responseType:'buffer' }).buffer();
             const metadata = await Forge.readModMetaData(buffer);
             context.log(JSON.stringify(metadata, null, 4));
 
