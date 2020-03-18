@@ -83,12 +83,11 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-# TypeScript output
-dist
-out
-
 # Azure Functions artifacts
 bin
 obj
 appsettings.json
 local.settings.json
+
+*.js
+*.js.map
