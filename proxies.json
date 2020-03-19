@@ -36,7 +36,7 @@
         ],
         "route": "/api/v1/mods/metadata/{modId}/{version}"
       },
-      "backendUri": "https://voxelauncher.blob.core.windows.net/mods/{modId}/{version}.json",
+      "backendUri": "https://xmcl.blob.core.windows.net/mods/{modId}/{version}.json",
       "responseOverrides": {
         "response.headers.Content-Type": "application/json"
       }
@@ -61,7 +61,7 @@
         ],
         "route": "/api/v1/jre/{os}/{arch}"
       },
-      "backendUri": "https://voxelauncher.blob.core.windows.net/jre/jre-{os}-{arch}.lzma"
+      "backendUri": "https://xmcl.blob.core.windows.net/jre/jre-{os}-{arch}.lzma"
     },
     "proxy-get-minecraft-forge-json": {
       "matchCondition": {

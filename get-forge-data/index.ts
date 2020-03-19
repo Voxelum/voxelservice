@@ -19,7 +19,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 context.res = {
                     status: 302,
                     headers: {
-                        Location: `https://voxelauncher.blob.core.windows.net/forge/data/${mapping}`
+                        Location: `https://xmcl.blob.core.windows.net/forge/data/${mapping}`
                     },
                 };
             } else {
