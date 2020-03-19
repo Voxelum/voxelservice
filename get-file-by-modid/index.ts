@@ -7,7 +7,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         context.res = {
             status: 301,
             headers: {
-                "Location": `https://stor46419.blob.core.windows.net/curseforge/${project}/${file}`,
+                "Location": `https://xmcl.blob.core.windows.net/curseforge/${project}/${file}`,
             },
         };
     } else {
