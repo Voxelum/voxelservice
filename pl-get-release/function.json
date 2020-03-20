@@ -13,7 +13,15 @@
       "type": "blob",
       "direction": "in",
       "name": "manifest",
-      "path": "pl/manifest.json",
+      "path": "pure-launcher/manifest.json",
+      "dataType": "string",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "blob",
+      "direction": "in",
+      "name": "latestManifest",
+      "path": "pure-launcher/latestManifest.json",
       "dataType": "string",
       "connection": "AzureWebJobsStorage"
     },

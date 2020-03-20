@@ -21,11 +21,11 @@ const fn: AzureFunction = async (ctx) => {
     try {
         const urls = ext === "asar" ? downloads : asar;
         const location: string = gfw ? urls[0] : urls[1];
-        const resolvedLocation = location.replace("{ext}", ext).replace("version", version);
+        const resolvedLocation = location.replace("{ext}", ext).replace("{version}", version);
         ctx.log(`URL: ${resolvedLocation}`);
         ctx.res = {
             code: 302,
-            header: {
+            headers: {
                 Location: resolvedLocation,
             }
         };
@@ -36,6 +36,7 @@ const fn: AzureFunction = async (ctx) => {
             code: 404,
         };
     }
+    ctx.done(null, ctx.res);
 };
 
 export default fn;
