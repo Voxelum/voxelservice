@@ -15,4 +15,4 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az storage blob upload --connection-string ${{ secrets.CONNECTION_STRING }} --container-name pure_launcher --name latestManifest.json --file latestManifest.json
+            az storage blob upload --connection-string ${{ secrets.CONNECTION_STRING }} --container-name pure_launcher --name $GITHUB_WORKSPACE/latestManifest.json --file $GITHUB_WORKSPACE/latestManifest.json
