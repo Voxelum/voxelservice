@@ -1,0 +1,19 @@
+name: test-workflow
+
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v2
+      - name: Upload manifest
+        uses: bacongobbler/azure-blob-storage-upload@v1.0.0
+        with:
+          source_dir: .
+          container_name: pure_launcher
+          connection_string: ${{ secrets.CONNECTION_STRING }}
+          extra_args: '--pattern latestManifest.json'
