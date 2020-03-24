@@ -15,4 +15,4 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az storage blob upload-batch --connection-string ${{ secrets.CONNECTION_STRING }} -d pure_launcher --pattern package.json
+            az storage blob upload-batch --connection-string ${{ secrets.CONNECTION_STRING }} -s . -d pure_launcher --pattern package.json
