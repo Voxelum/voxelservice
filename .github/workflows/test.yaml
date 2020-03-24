@@ -10,10 +10,9 @@ jobs:
     steps:
       - name: Check out git repository
         uses: actions/checkout@v2
-      - name: Upload manifest
-        uses: bacongobbler/azure-blob-storage-upload@v1.0.0
+      - name: Azure CLI script
+        uses: azure/CLI@v1
         with:
-          source_dir: .
-          container_name: pure_launcher
-          connection_string: ${{ secrets.CONNECTION_STRING }}
-          extra_args: '--pattern latestManifest.json'
+          azcliversion: 2.0.72
+          inlineScript: |
+            azaz storage blob upload-batch --connection-string ${{ secrets.CONNECTION_STRING }} -d pure_launcher --pattern package.json
