@@ -10,12 +10,14 @@ jobs:
     steps:
       - name: Check out git repository
         uses: actions/checkout@v2
-      - uses: azure/login@v1
+      - uses: kheiakiyama/install-azcopy-action@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.0.72
-          inlineScript: |
-            az storage blob upload --connection-string ${{ secrets.CONNECTION_STRING }} --container-name pure_launcher --name $GITHUB_WORKSPACE/latestManifest.json --file $GITHUB_WORKSPACE/latestManifest.json
+          version: 'v10'
+      - run: azcopy_v10 copy latestManifest.json 'https://xmcl.blob.core.windows.net/pure-launcher' --dest-key ${{ secrets.STORAGE_KEY }}
+
+      # - name: Azure CLI script
+      #   uses: azure/CLI@v1
+      #   with:
+      #     azcliversion: 2.0.72
+      #     inlineScript: |
+      #       az storage blob upload --connection-string ${{ secrets.CONNECTION_STRING }} --container-name pure_launcher --name $GITHUB_WORKSPACE/latestManifest.json --file $GITHUB_WORKSPACE/latestManifest.json
