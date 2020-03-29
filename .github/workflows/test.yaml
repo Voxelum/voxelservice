@@ -13,7 +13,7 @@ jobs:
       - uses: kheiakiyama/install-azcopy-action@v1
         with:
           version: 'v10'
-      - run: azcopy_v10 copy latestManifest.json 'https://xmcl.blob.core.windows.net/pure-launcher' --dest-key ${{ secrets.STORAGE_KEY }}
+      - run: azcopy_v10 copy latestManifest.json 'https://xmcl.blob.core.windows.net/pure-launcher${{ secrets.SAS }}'
 
       # - name: Azure CLI script
       #   uses: azure/CLI@v1
