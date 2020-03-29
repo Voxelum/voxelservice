@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Check out git repository
         uses: actions/checkout@v2
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
